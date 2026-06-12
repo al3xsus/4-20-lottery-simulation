@@ -86,15 +86,6 @@ The simulation uses the following mock payout system:
     npm run build
     ```
 
-## 👤 Author
-
-**Alexandr Lavrentyev**
-Software Engineer
-
--   **Email:** [al3xsus@pm.me](mailto:al3xsus@pm.me)
--   **GitHub:** [@al3xsus](https://github.com/al3xsus/)
--   **LinkedIn:** [Alexandr Lavrentyev](https://www.linkedin.com/in/alexandr-lavrentyev/)
-
 ## 📄 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
