@@ -8,7 +8,6 @@ export interface SimulationParams {
 export interface DrawResult {
   drawIndex: number;
   won: number;
-  matches: number;
   netBalance: number;
 }
 
@@ -26,7 +25,7 @@ export interface WorkerMessage {
   batchIndex?: number;
 }
 
-self.onmessage = (e: MessageEvent<SimulationParams>) => {
+self.onmessage = async (e: MessageEvent<SimulationParams>) => {
   const { selectedNumbers, ticketCost, drawsPerWeek, yearsToSimulate } = e.data;
   const totalDraws = yearsToSimulate * 52;
   const selectedSet = new Set(selectedNumbers);
@@ -67,7 +66,6 @@ self.onmessage = (e: MessageEvent<SimulationParams>) => {
     currentBatch.push({
       drawIndex: i,
       won: totalWon,
-      matches: 0, // We don't track individual match per draw in the chart to keep it clean
       netBalance: netBalance,
     });
 
@@ -78,6 +76,9 @@ self.onmessage = (e: MessageEvent<SimulationParams>) => {
         batchIndex: Math.floor(i / BATCH_SIZE),
       });
       currentBatch = [];
+
+      // Artificial delay to allow for visible animation/streaming
+      await new Promise(resolve => setTimeout(resolve, 30));
     }
   }
 
@@ -85,7 +86,7 @@ self.onmessage = (e: MessageEvent<SimulationParams>) => {
     totalInvested,
     totalWon,
     netBalance,
-    roi: (totalWon / totalInvested) * 100,
+    roi: ((totalWon - totalInvested) / totalInvested) * 100,
     matchCounts,
   };
 

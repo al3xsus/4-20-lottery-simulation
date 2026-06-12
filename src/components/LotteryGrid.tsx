@@ -16,7 +16,11 @@ const LotteryGrid: React.FC<Props> = ({ selectedNumbers, onToggle, disabled }) =
   const numbers = Array.from({ length: 20 }, (_, i) => i + 1);
 
   return (
-    <div className="grid grid-cols-5 gap-2">
+    <div
+      className="grid grid-cols-5 gap-2"
+      role="group"
+      aria-label="Lottery number selection grid"
+    >
       {numbers.map((num) => {
         const isSelected = selectedNumbers.includes(num);
         return (
@@ -24,6 +28,8 @@ const LotteryGrid: React.FC<Props> = ({ selectedNumbers, onToggle, disabled }) =
             key={num}
             onClick={() => onToggle(num)}
             disabled={disabled && !isSelected}
+            aria-pressed={isSelected}
+            aria-label={`Number ${num}`}
             className={cn(
               "h-12 w-12 rounded-lg font-bold transition-all duration-200 border-2",
               isSelected
